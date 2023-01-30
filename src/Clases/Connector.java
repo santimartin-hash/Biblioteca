@@ -7,6 +7,15 @@ import java.sql.Statement;
 
 public class Connector {
 	protected Connection con;
+	
+	public Connection getCn() {
+		return con;
+	}
+	
+	public void setCn(Connection con) {
+		this.con = con;
+	}
+	
 	public void conectar() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -17,9 +26,6 @@ public class Connector {
 			e.printStackTrace();
 		}
 	}
-	public Connection getCn() {
-		return con;
-	}
 	public void cerrar() {
 		try {
 			con.close();
@@ -27,8 +33,5 @@ public class Connector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	public void setCn(Connection con) {
-		this.con = con;
 	}
 }
