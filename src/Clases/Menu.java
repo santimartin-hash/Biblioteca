@@ -27,7 +27,7 @@ public class Menu {
 	final static int SALIR=0;
 
 	static void MostrarMenuPrincipal() {
-		System.out.println("------MENU-------");
+		System.out.println("------------MENU------------");
 		System.out.println(GESTIONAR_LIBROS +". Gestionar Libros");
 		System.out.println(GESTIONAR_SOCIOS + ". Gestionar Socios");
 		System.out.println(GESTIONAR_PRESTAMOS + ". Gestionar Prestamos");
@@ -36,17 +36,15 @@ public class Menu {
 	}
 
 	static void MostrarMenuLibros() {
-		System.out.println("------MENU-------");
 		System.out.println(INSERTAR_LIBRO + ". Insertar Libro");
 		System.out.println(ELIMINAR_LIBRO + ". Eliminar Libro");
 		System.out.println(MODIFICAR_LIBRO + ". Modificar Libro");
-		System.out.println(VER_LIBROS + ". Ver Libro");
+		System.out.println(VER_LIBROS + ". Ver Libros");
 		System.out.println(SALIR + ". Salir");
 		System.out.println("Elije una de las opciones");
 	
 	}
 	static void MostrarMenuSocios() {
-		System.out.println("------MENU-------");
 		System.out.println(INSERTAR_SOCIO + ". Insertar Socios");
 		System.out.println(ELIMINAR_SOCIO + ". Eliminar Socios");
 		System.out.println(MODIFICAR_SOCIO + ". Modificar Socios");
@@ -55,7 +53,6 @@ public class Menu {
 		System.out.println("Elije una de las opciones");
 	}
 	static void MostrarMenuPrestamos() {
-		System.out.println("------MENU-------");
 		System.out.println(REALIZAR_PRESTAMO + "1. Realizar prestamo");
 		System.out.println(SALIR + "0. Salir");
 		System.out.println("Elije una de las opciones");

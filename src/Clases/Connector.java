@@ -19,7 +19,7 @@ public class Connector {
 	public void conectar() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost/prueba";
+			String url = "jdbc:mysql://localhost/biblioteca";
 			con = (Connection) DriverManager.getConnection(url,"root",""); 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
