@@ -19,14 +19,6 @@ public class Visor {
 	   }
  }
 
-public static void mostrarLibro( Libro libro) {
-	
-}
-
-public static void mostrarMensaje(String mensaje) {
-
-	
-}
 public static void mostrarSocios(ArrayList<Socio> socios) {
 	  
 	System.out.println("Lista de Socios:");
@@ -41,6 +33,20 @@ public static void mostrarSocios(ArrayList<Socio> socios) {
 	  System.out.println("Provincia: " + socio.getProvincia());
 	  System.out.println("DNI: " + socio.getDni());
 	  System.out.println("-----------------------------------------------------------");
+	   }
+ }
+public static void mostrarPrestamos(ArrayList<Prestamo> prestamo) {
+	  
+	System.out.println("Lista de libros:");
+		   
+	for (int i = 0; i < prestamo.size(); i++) {
+	  Prestamo Prestamo = prestamo.get(i);
+	  System.out.println("ID: " + prestamo.getId_libro());
+	  System.out.println("Título: " + prestamo.getTitulo());
+	  System.out.println("Autor: " + prestamo.getAutor());
+	  System.out.println("Número de páginas: " + prestamo.getNum_pag());
+	  System.out.println("-----------------------------------------------------------");
+	  
 	   }
  }
 

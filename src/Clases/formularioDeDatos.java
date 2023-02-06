@@ -1,5 +1,7 @@
 package Clases;
 
+import java.util.Date;
+
 import java.util.Scanner;
 
 public class formularioDeDatos {
@@ -117,5 +119,17 @@ public static int pedirIdSocio( Scanner scan) {
 	return id;
 	
 	
+}
+public static Prestamo getDatosDePrestamo(Scanner scan) {
+	Prestamo prestamo = new Prestamo();
+	System.out.println("Intdoduce un id de Libro");
+	prestamo.setId_libro(Integer.parseInt(scan.nextLine()));
+
+	System.out.println("Intdoduce un id de socio");
+	prestamo.setId_socio(Integer.parseInt(scan.nextLine()));
+	
+	prestamo.setFecha(new Date()); //fecha actual del sistema
+	prestamo.setDevuelto(false); //cuando se crea un prestamo nuevo devuelto a false
+	return prestamo;
 }
 }

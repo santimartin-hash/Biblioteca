@@ -1,5 +1,6 @@
 package Clases;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,66 +78,67 @@ public void mdificarLibro(Libro libro) throws SQLException {
 	}
 
 public void insertarSocio(Socio socio) throws SQLException {
-PreparedStatement preparedSt = con.prepareStatement("INSERT INTO socios ( id, nombre, apellido, direccion, poblacion, provincia, dni) VALUES (?,?,?,?,?,?,?);");
-
-preparedSt.setInt(1, socio.getId());
-preparedSt.setString(2, socio.getNombre());
-preparedSt.setString(3, socio.getApellido());
-preparedSt.setString(4, socio.getDireccion());
-preparedSt.setString(5, socio.getPoblacion());
-preparedSt.setString(6, socio.getProvincia());
-preparedSt.setInt(7, socio.getDni());
-
-preparedSt.execute();
+	
+	PreparedStatement preparedSt = con.prepareStatement("INSERT INTO socios ( id, nombre, apellido, direccion, poblacion, provincia, dni) VALUES (?,?,?,?,?,?,?);");
+	
+	preparedSt.setInt(1, socio.getId());
+	preparedSt.setString(2, socio.getNombre());
+	preparedSt.setString(3, socio.getApellido());
+	preparedSt.setString(4, socio.getDireccion());
+	preparedSt.setString(5, socio.getPoblacion());
+	preparedSt.setString(6, socio.getProvincia());
+	preparedSt.setInt(7, socio.getDni());
+	
+	preparedSt.execute();
 }
 
 public void eliminarSocio (int id) throws SQLException {
 
-Socio socio = new Socio();
-
-PreparedStatement preparedStel = con.prepareStatement("DELETE FROM socios WHERE id = ? ;");
-
-preparedStel.setInt(1, id);
-preparedStel.execute();
+	Socio socio = new Socio();
+	
+	PreparedStatement preparedStel = con.prepareStatement("DELETE FROM socios WHERE id = ? ;");
+	
+	preparedStel.setInt(1, id);
+	preparedStel.execute();
 }
 
 public void modificarSocio(Socio socio) throws SQLException {
 
-PreparedStatement preparedStModify = con.prepareStatement("UPDATE socios SET nombre= (?),apellido= (?),direccion= (?),"
-+ "poblacion = (?),provincia = (?), dni = (?) WHERE id = (?);");
-
-preparedStModify.setInt(7, socio.getId());
-preparedStModify.setString(1, socio.getNombre());
-preparedStModify.setString(2, socio.getApellido());
-preparedStModify.setString(3, socio.getDireccion());
-preparedStModify.setString(4, socio.getPoblacion());
-preparedStModify.setString(5, socio.getProvincia());
-preparedStModify.setInt(6, socio.getDni());
-
-preparedStModify.execute();
+	PreparedStatement preparedStModify = con.prepareStatement("UPDATE socios SET nombre= (?),apellido= (?),direccion= (?),"
+	+ "poblacion = (?),provincia = (?), dni = (?) WHERE id = (?);");
+	
+	preparedStModify.setInt(7, socio.getId());
+	preparedStModify.setString(1, socio.getNombre());
+	preparedStModify.setString(2, socio.getApellido());
+	preparedStModify.setString(3, socio.getDireccion());
+	preparedStModify.setString(4, socio.getPoblacion());
+	preparedStModify.setString(5, socio.getProvincia());
+	preparedStModify.setInt(6, socio.getDni());
+	
+	preparedStModify.execute();
 }
 
 public Socio getSocio (int id) throws SQLException {
 
-String sentenciaSelect = "SELECT * FROM socios WHERE id = ? ";
-PreparedStatement preparedSt = con.prepareStatement(sentenciaSelect);
-
-Socio socio = new Socio();
-
-preparedSt.setInt(1, socio.getId());
-ResultSet resultado = preparedSt.executeQuery();
-
-if (resultado.next()) {
-socio.setId(resultado.getInt("id"));
-socio.setNombre(resultado.getNString("nombre"));
-socio.setApellido(resultado.getNString("apellido"));
-socio.setDireccion(resultado.getString("direccion"));
-socio.setPoblacion(resultado.getNString("poblacion"));
-socio.setProvincia(resultado.getNString("provincia"));
-socio.setDni(resultado.getInt("dni"));
-}
-
-return socio;
+	String sentenciaSelect = "SELECT * FROM socios WHERE id = ? ";
+	PreparedStatement preparedSt = con.prepareStatement(sentenciaSelect);
+	
+	Socio socio = new Socio();
+	
+	preparedSt.setInt(1, socio.getId());
+	ResultSet resultado = preparedSt.executeQuery();
+	
+	if (resultado.next()) {
+	socio.setId(resultado.getInt("id"));
+	socio.setNombre(resultado.getNString("nombre"));
+	socio.setApellido(resultado.getNString("apellido"));
+	socio.setDireccion(resultado.getString("direccion"));
+	socio.setPoblacion(resultado.getNString("poblacion"));
+	socio.setProvincia(resultado.getNString("provincia"));
+	socio.setDni(resultado.getInt("dni"));
+	}
+	
+	return socio;
 
 }
 public ArrayList<Socio> getSocios () throws SQLException {
@@ -157,7 +159,74 @@ public ArrayList<Socio> getSocios () throws SQLException {
 	socio.setDni(resultado.getInt("dni"));
 	socios.add(socio);
 	}
-	return socios;
+return socios;
+}
+/**
+ * @param presatamo
+ */
+public void insertPrestamo(Prestamo prestamo) {
+	String sql = "INSERT INTO prestamos(id_libro, id_socio, fecha, devuelto) VALUES (?, ?,?,?)";
+	
+	PreparedStatement pst;
+	try {
+		pst = con.prepareStatement(sql);
+		pst.setInt(1, prestamo.getId_libro());
+		pst.setInt(2, prestamo.getId_socio());
+		
+		//para pasar de java.util.Date a java.sql.Date
+		pst.setDate(3, new java.sql.Date(prestamo.getFecha().getTime()));
+		pst.setBoolean(4, prestamo.getDevuelto());
+		
+		pst.execute();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+}
+
+/**
+ * @param idLibro
+ */
+public void devolverLibro(int idLibro) {
+	Prestamo prestamo = prestamoNoDevuelto(idLibro);
+	
+	String sql = "UPDATE prestamos SET devuelto=true WHERE id_libro =? and id_socio=? and fecha=?";
+	try {
+		PreparedStatement pst = con.prepareStatement(sql);
+		pst.setInt(1, prestamo.getId_libro());
+		pst.setInt(2, prestamo.getId_socio());
+		pst.setDate(3,new Date(prestamo.getFecha().getTime()));
+		pst.execute();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+}
+
+/**
+ * @return
+ */
+private Prestamo prestamoNoDevuelto(int idLibro) {
+	Prestamo prestamo = new Prestamo();
+	String sql = "select * from prestamos where id_libro = ? and devuelto = false";
+	PreparedStatement pst;
+	try {
+		pst = con.prepareStatement(sql);
+		pst.setInt(1, idLibro);
+		ResultSet rs = pst.executeQuery();
+		if(rs.next()) {
+			prestamo.setId_libro(idLibro);
+			prestamo.setId_socio(rs.getInt("id_socio"));
+			prestamo.setFecha(rs.getDate("fecha"));
+			prestamo.setDevuelto(rs.getBoolean("devuelto"));
+			
+		}
+		return prestamo;
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return prestamo;
+	
 }
 
 		

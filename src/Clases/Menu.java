@@ -23,7 +23,9 @@ public class Menu {
 
 
 	final static int REALIZAR_PRESTAMO=1;
-
+	final static int DEVOLVER_LIBRO=2;
+	final static int VER_PRESTAMOS=3;
+	
 	final static int SALIR=0;
 
 	static void MostrarMenuPrincipal() {
@@ -53,8 +55,10 @@ public class Menu {
 		System.out.println("Elije una de las opciones");
 	}
 	static void MostrarMenuPrestamos() {
-		System.out.println(REALIZAR_PRESTAMO + "1. Realizar prestamo");
-		System.out.println(SALIR + "0. Salir");
+		System.out.println(REALIZAR_PRESTAMO + ". Realizar prestamo");
+		System.out.println(DEVOLVER_LIBRO + ". Devolver libro");
+		System.out.println(VER_PRESTAMOS + ". Ver libros");
+		System.out.println(SALIR + ". Salir");
 		System.out.println("Elije una de las opciones");
 	}
 }

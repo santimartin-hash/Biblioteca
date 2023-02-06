@@ -10,6 +10,7 @@
 	int opcion;
 	GestorLibros gl = new GestorLibros();
 	GestorSocios gs = new GestorSocios();
+	GestorPrestamo gp = new GestorPrestamo();
 	do {
 	Menu.MostrarMenuPrincipal();
 	Scanner scan =  new Scanner(System.in);
@@ -23,7 +24,7 @@
 	gs.run(scan);
 	break;
 	case Menu.GESTIONAR_PRESTAMOS:
-
+	gp.run(scan);
 	break;
 	case Menu.SALIR:
 	System.out.println("Hasta la proxima");
